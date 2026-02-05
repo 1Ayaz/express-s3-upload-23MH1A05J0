@@ -1,0 +1,134 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title My Files
+    style.
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #121212;
+        min-height: 100vh;
+        padding: 20px;
+        color: white;
+      }
+      .navbar {
+        background: #1e1e1e;
+        padding: 15px 30px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        border: 1px solid #333;
+      }
+      .navbar .user {
+        font-weight: bold;
+        color: #ddd;
+      }
+      .navbar .links a {
+        margin-left: 20px;
+        color: #ff8c00;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+      .navbar .links a:hover {
+        color: #ffa500;
+        text-decoration: underline;
+      }
+      .container {
+        background: #1e1e1e;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        max-width: 900px;
+        margin: 0 auto;
+        border: 1px solid #333;
+      }
+      h1 {
+        text-align: center;
+        color: #ff8c00;
+        margin-bottom: 30px;
+        font-weight: bold;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        color: #ddd;
+      }
+      th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #333;
+      }
+      th {
+        background: #ff8c00;
+        color: black;
+        font-weight: bold;
+      }
+      tr:hover {
+        background: #2a2a2a;
+      }
+      .download-btn {
+        background: #ff8c00;
+        color: black;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        transition: transform 0.2s, background 0.3s;
+        display: inline-block;
+      }
+      .download-btn:hover {
+        background: #ffa500;
+        transform: scale(1.05);
+      }
+      .no-files {
+        text-align: center;
+        color: #666;
+        padding: 40px;
+        font-size: 18px;
+      }
+      .error {
+        background: rgba(255, 68, 68, 0.1);
+        color: #ff4444;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-align: center;
+        border: 1px solid #ff4444;
+      }
+  body
+    .navbar
+      .user Welcome, #{username}!
+      .links
+        a(href='/upload') Upload File
+        a(href='/logout') Logout
+    .container
+      h1 My Files
+      if error
+        .error= error
+      if files && files.length > 0
+        table
+          thead
+            tr
+              th Filename
+              th Upload Date
+              th Action
+          tbody
+            each file in files
+              tr
+                td= file.originalFilename
+                td= file.uploadDate.toLocaleString()
+                td
+                  a.download-btn(href=`/download/${file._id}`) Download
+      else
+        .no-files No files uploaded yet. Upload your first file!

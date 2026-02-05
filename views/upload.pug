@@ -1,0 +1,133 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Upload File
+    style.
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #121212;
+        min-height: 100vh;
+        padding: 20px;
+        color: white;
+      }
+      .navbar {
+        background: #1e1e1e;
+        padding: 15px 30px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        border: 1px solid #333;
+      }
+      .navbar .user {
+        font-weight: bold;
+        color: #ddd;
+      }
+      .navbar .links a {
+        margin-left: 20px;
+        color: #ff8c00;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+      .navbar .links a:hover {
+        color: #ffa500;
+        text-decoration: underline;
+      }
+      .container {
+        background: #1e1e1e;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        max-width: 600px;
+        margin: 0 auto;
+        border: 1px solid #333;
+      }
+      h1 {
+        text-align: center;
+        color: #ff8c00;
+        margin-bottom: 30px;
+        font-weight: bold;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #ddd;
+        font-weight: bold;
+      }
+      input[type="file"] {
+        width: 100%;
+        padding: 20px;
+        background: #2a2a2a;
+        border: 2px dashed #444;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #ddd;
+        transition: border-color 0.3s;
+      }
+      input[type="file"]:hover {
+        border-color: #ff8c00;
+      }
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #ff8c00;
+        color: black;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.3s;
+      }
+      button:hover {
+        background: #ffa500;
+        transform: translateY(-2px);
+      }
+      .message {
+        background: rgba(0, 255, 127, 0.1);
+        color: #00ff7f;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-align: center;
+        border: 1px solid #00ff7f;
+      }
+      .error {
+        background: rgba(255, 68, 68, 0.1);
+        color: #ff4444;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-align: center;
+        border: 1px solid #ff4444;
+      }
+  body
+    .navbar
+      .user Welcome, #{username}!
+      .links
+        a(href='/files') My Files
+        a(href='/logout') Logout
+    .container
+      h1 Upload File
+      if message
+        .message= message
+      if error
+        .error= error
+      form(method='POST', action='/upload', enctype='multipart/form-data')
+        .form-group
+          label(for='file') Select File
+          input(type='file', id='file', name='file', required)
+        button(type='submit') Upload to S3
